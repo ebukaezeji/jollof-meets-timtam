@@ -1,7 +1,45 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
-/* Accessibility: Skip to content link */
+@import "tailwindcss";
+
+@theme {
+  --color-emerald: #0B6E4F;
+  --color-emerald-dark: #08573E;
+  --color-emerald-light: #E8F5F0;
+  --color-gold: #D4AF37;
+  --color-gold-light: #FEF7E0;
+  --color-gold-dark: #B8962E;
+  --color-charcoal: #2D3748;
+  --color-charcoal-light: #4A5568;
+  --color-cream: #F7F3E9;
+  --color-cream-dark: #EDE6D5;
+  --color-terracotta: #C97B63;
+  --color-coral: #E8927C;
+  --color-navy: #1B2A4A;
+  --color-navy-light: #2D4A7A;
+
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Playfair Display', serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    font-family: var(--font-body);
+    color: #202124;
+    background: #ffffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

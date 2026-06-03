@@ -24,12 +24,10 @@ const {
   lang = SITE.defaultLanguage,
 } = Astro.props;
 
-// Construct full URLs
 const currentPath = Astro.url.pathname;
 const canonicalPath = canonicalURL || currentPath;
 const siteURL = new URL(canonicalPath, SITE.url);
 
-// Handle image URLs - support both absolute URLs and relative paths
 const getFullImageUrl = (image: string): string => {
   if (image.startsWith('http://') || image.startsWith('https://')) {
     return image;
@@ -40,7 +38,6 @@ const getFullImageUrl = (image: string): string => {
 const fullOgImage = getFullImageUrl(ogImage);
 const fullTwitterImage = getFullImageUrl(twitterImage);
 
-// Build robots meta content
 const robotsContent = [
   noindex ? 'noindex' : 'index',
   nofollow ? 'nofollow' : 'follow',
@@ -54,43 +51,60 @@ const robotsContent = [
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		
-		<!-- Resource Hints -->
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-		
-		<!-- Preload Critical Resources -->
+
 		<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
-		
-		<!-- Primary Meta Tags -->
+
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="robots" content={robotsContent} />
 		<link rel="canonical" href={siteURL.href} />
-		
-		<!-- Open Graph / Facebook -->
+
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={siteURL.href} />
 		<meta property="og:title" content={ogTitle} />
 		<meta property="og:description" content={ogDescription} />
 		<meta property="og:image" content={fullOgImage} />
 		<meta property="og:site_name" content={SITE.title} />
-		
-		<!-- Twitter -->
+
 		<meta name="twitter:card" content={twitterCard} />
 		<meta name="twitter:url" content={siteURL.href} />
 		<meta name="twitter:title" content={twitterTitle} />
 		<meta name="twitter:description" content={twitterDescription} />
 		<meta name="twitter:image" content={fullTwitterImage} />
 	</head>
-	<body class="min-h-screen bg-gray-50">
+	<body class="bg-white text-charcoal font-body">
 		<a
 			href="#main-content"
-			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-black focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
+			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-emerald focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald"
 		>
 			Skip to main content
 		</a>
 		<slot />
+		<script>
+			async function loadContent() {
+				try {
+					const res = await fetch('/api/content');
+					if (!res.ok) return;
+					const content = await res.json();
+					document.querySelectorAll('[data-text]').forEach(el => {
+						const key = el.getAttribute('data-text');
+						const val = key.split('.').reduce((o, k) => o?.[k], content);
+						if (val) {
+							if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+								el.setAttribute('placeholder', val);
+							} else {
+								el.textContent = val;
+							}
+						}
+					});
+				} catch {}
+			}
+			loadContent();
+		</script>
 	</body>
+</html>
 </html>

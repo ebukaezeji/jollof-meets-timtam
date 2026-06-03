@@ -1,0 +1,17 @@
+{
+  "name": "jollof-meets-timtam",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-06-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "kv_namespaces": [
+    {
+      "binding": "FORM_DATA",
+      "id": "9d5ca96abb91451390a34cf284794c63"
+    }
+  ],
+  "vars": {
+    "SITE_NAME": "Jollof Meets Tim Tam",
+    "CONTACT_EMAIL": "hello@jollofmeetstimtam.com",
+    "ACCOUNT_ID": "54dd5141485879b0dc289c238052abc6"
+  }
+}

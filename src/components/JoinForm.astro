@@ -1,0 +1,96 @@
+<section id="join" class="py-20 md:py-28 px-6 bg-gray-50">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-emerald text-sm font-semibold tracking-widest uppercase mb-4" data-text="join.label">Join Us</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-charcoal" data-text="join.heading">Be part of the community</h2>
+      <p class="mt-4 text-charcoal-light text-lg" data-text="join.subtitle">
+        Register your interest and we'll keep you updated.
+      </p>
+    </div>
+    <form id="join-form" class="bg-white rounded-2xl p-8 md:p-12 border border-gray-100 shadow-sm">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label for="firstName" class="block text-sm font-medium text-charcoal mb-1.5">First name</label>
+          <input type="text" id="firstName" name="firstName" required
+            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition-colors" />
+        </div>
+        <div>
+          <label for="lastName" class="block text-sm font-medium text-charcoal mb-1.5">Last name</label>
+          <input type="text" id="lastName" name="lastName" required
+            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition-colors" />
+        </div>
+        <div>
+          <label for="phone" class="block text-sm font-medium text-charcoal mb-1.5">Phone</label>
+          <input type="tel" id="phone" name="phone"
+            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition-colors" />
+        </div>
+        <div>
+          <label for="state" class="block text-sm font-medium text-charcoal mb-1.5">State</label>
+          <select id="state" name="state" required
+            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition-colors">
+            <option value="">Select state</option>
+            <option value="NSW">NSW</option>
+            <option value="VIC">VIC</option>
+            <option value="QLD">QLD</option>
+            <option value="WA">WA</option>
+            <option value="SA">SA</option>
+            <option value="ACT">ACT</option>
+            <option value="NT">NT</option>
+            <option value="TAS">TAS</option>
+          </select>
+        </div>
+        <div>
+          <label for="organisation" class="block text-sm font-medium text-charcoal mb-1.5">Organisation</label>
+          <input type="text" id="organisation" name="organisation"
+            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition-colors" />
+        </div>
+        <div>
+          <label for="jobTitle" class="block text-sm font-medium text-charcoal mb-1.5">Job title</label>
+          <input type="text" id="jobTitle" name="jobTitle"
+            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition-colors" />
+        </div>
+      </div>
+      <button type="submit" class="mt-8 w-full bg-emerald text-white font-medium py-3.5 rounded-xl hover:bg-emerald-dark transition-colors text-base disabled:opacity-50" id="join-submit" data-text="join.button">
+        Register interest
+      </button>
+      <p id="join-message" class="mt-4 text-sm text-center hidden"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.getElementById('join-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('join-submit');
+    const msg = document.getElementById('join-message');
+    if (!btn || !msg) return;
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    msg.classList.add('hidden');
+
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      const res = await fetch('/api/join', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(data)),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const result = await res.json();
+      if (res.ok) {
+        msg.textContent = "Thanks! We'll be in touch.";
+        msg.className = 'mt-4 text-sm text-center text-emerald';
+        form.reset();
+      } else {
+        msg.textContent = result.error || 'Something went wrong. Please try again.';
+        msg.className = 'mt-4 text-sm text-center text-terracotta';
+      }
+    } catch {
+      msg.textContent = 'Network error. Please try again.';
+      msg.className = 'mt-4 text-sm text-center text-terracotta';
+    }
+    msg.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Register interest';
+  });
+</script>
