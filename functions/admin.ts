@@ -11,13 +11,13 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2rem}
 .login{max-width:320px;margin:4rem auto;text-align:center}
 .login input{width:100%;padding:.75rem;border:1px solid #dadce0;border-radius:8px;font-size:.9rem;outline:0;margin-bottom:1rem}
 .login input:focus{border-color:#1a73e8}
-.login button{width:100%;padding:.75rem;background:#0B6E4F;color:#fff;border:0;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer}
-.login button:hover{background:#08573E}
+.login button{width:100%;padding:.75rem;background:#1a1a1a;color:#fff;border:0;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer}
+.login button:hover{background:#000}
 .login .error{color:#d93025;font-size:.8rem;margin-top:.5rem}
 .dashboard{display:none;max-width:960px;margin:0 auto}
 .tabs{display:flex;gap:0;margin-bottom:2rem;border-bottom:2px solid #e8eaed}
 .tab{padding:.75rem 1.5rem;cursor:pointer;font-size:.9rem;font-weight:500;color:#5f6368;border-bottom:2px solid transparent;margin-bottom:-2px;background:0;border-top:0;border-left:0;border-right:0}
-.tab.active{color:#0B6E4F;border-bottom-color:#0B6E4F}
+.tab.active{color:#ffbf00;border-bottom-color:#ffbf00}
 .tab:hover{color:#202124}
 .tab-content{display:none}
 .tab-content.active{display:block}
@@ -27,12 +27,12 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2rem}
 .field label{display:block;font-size:.8rem;font-weight:500;color:#5f6368;margin-bottom:.3rem}
 .field input,.field textarea{width:100%;padding:.6rem;border:1px solid #dadce0;border-radius:6px;font-size:.85rem;font-family:Inter,sans-serif;outline:0}
 .field textarea{resize:vertical;min-height:60px}
-.field input:focus,.field textarea:focus{border-color:#0B6E4F}
+.field input:focus,.field textarea:focus{border-color:#ffbf00}
 .actions{display:flex;gap:1rem;align-items:center;margin-top:2rem}
-.actions button,.btn{padding:.75rem 2rem;background:#0B6E4F;color:#fff;border:0;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer}
-.actions button:hover,.btn:hover{background:#08573E}
+.actions button,.btn{padding:.75rem 2rem;background:#1a1a1a;color:#fff;border:0;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer}
+.actions button:hover,.btn:hover{background:#000}
 .actions button:disabled{opacity:.5;cursor:default}
-.actions .status{font-size:.85rem;color:#0B6E4F}
+.actions .status{font-size:.85rem;color:#1a1a1a}
 .actions .error{color:#d93025}
 .logout{background:0;border:0;color:#5f6368;font-size:.85rem;cursor:pointer;margin-left:auto;text-decoration:underline}
 .submissions-toolbar{display:flex;gap:1rem;align-items:center;margin-bottom:1rem}
@@ -113,11 +113,10 @@ function buildForm(content) {
   const form = document.getElementById('contentForm')
   form.innerHTML = ''
   const sections = [
-    {key:'hero',label:'Hero Section',fields:{badge:'Badge',heading1:'Heading Line 1',heading2:'Heading Line 2',heading3:'Heading Line 3',subtitle:'Subtitle',cta1:'CTA Button 1',cta2:'CTA Button 2'}},
-    {key:'about',label:'About Section',fields:{label:'Section Label',heading:'Heading',subtitle:'Subtitle','card1.title':'Card 1 Title','card1.text':'Card 1 Text','card2.title':'Card 2 Title','card2.text':'Card 2 Text','card3.title':'Card 3 Title','card3.text':'Card 3 Text'}},
-    {key:'events',label:'Events Section',fields:{label:'Section Label',heading:'Heading',subtitle:'Subtitle',badge:'Badge',cardHeading:'Card Heading',feature1:'Feature 1',feature2:'Feature 2',feature3:'Feature 3',feature4:'Feature 4'}},
-    {key:'join',label:'Join Section',fields:{label:'Section Label',heading:'Heading',subtitle:'Subtitle',button:'Button Text'}},
-    {key:'footer',label:'Footer',fields:{tagline:'Tagline'}}
+    {key:'hero',label:'Hero Section',fields:{heading1:'Line 1',heading2:'Line 2 (Amber)',heading3:'Line 3',subtitle:'Subtitle',cta1:'Button Text'}},
+    {key:'about',label:'About Section',fields:{heading:'Heading','card1.title':'Card 1 Title','card1.text':'Card 1 Text','card2.title':'Card 2 Title','card2.text':'Card 2 Text','card3.title':'Card 3 Title','card3.text':'Card 3 Text'}},
+    {key:'events',label:'Events Section',fields:{label:'Section Label',heading:'Heading Line 1',subtitle:'Heading Line 2 (Amber)',description:'Description',feature1:'Tag 1',feature2:'Tag 2',cta:'Button Text'}},
+    {key:'join',label:'Join Section',fields:{heading:'Heading',subtitle:'Subtitle',button:'Button Text'}}
   ]
   const inputs = {}
   sections.forEach(s => {

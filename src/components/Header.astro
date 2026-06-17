@@ -1,35 +1,31 @@
-<header class="w-full bg-white border-b border-gray-200 fixed top-0 z-50">
-  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 no-underline">
-      <span class="text-xl font-bold tracking-tight text-black">Jollof</span>
-      <span class="text-xl font-bold tracking-tight text-black">meets</span>
-      <span class="text-xl font-bold tracking-tight text-black">TimTam</span>
-    </a>
-    <nav class="hidden md:flex items-center gap-8">
-      <a href="#about" class="text-sm font-medium text-charcoal hover:text-emerald transition-colors no-underline">About</a>
-      <a href="#events" class="text-sm font-medium text-charcoal hover:text-emerald transition-colors no-underline">Events</a>
-      <a href="#join" class="text-sm font-medium bg-emerald text-white px-5 py-2 rounded-full hover:bg-emerald-dark transition-colors no-underline">Join us</a>
-    </nav>
-    <button id="mobile-menu-btn" class="md:hidden p-2 text-charcoal" aria-label="Menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 12h18M3 6h18M3 18h18"/>
-      </svg>
-    </button>
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm">
+<nav class="flex justify-between items-center px-5 md:px-16 py-2 max-w-[1280px] mx-auto h-20">
+<a href="/" class="font-headline text-xl font-bold text-primary tracking-tight no-underline">
+    Jollof meets TimTam
+  </a>
+  <div class="hidden md:flex items-center gap-6 font-body text-base text-on-surface-variant">
+    <a href="#about" class="hover:text-secondary transition-colors no-underline">About</a>
+    <a href="#events" class="hover:text-secondary transition-colors no-underline">Events</a>
+    <a href="#join" class="text-secondary font-bold border-b-2 border-secondary pb-1 no-underline">Join Us</a>
   </div>
-  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white">
-    <div class="px-6 py-4 space-y-3">
-      <a href="#about" class="block text-sm font-medium text-charcoal hover:text-emerald no-underline">About</a>
-      <a href="#events" class="block text-sm font-medium text-charcoal hover:text-emerald no-underline">Events</a>
-      <a href="#join" class="block text-sm font-medium text-emerald no-underline">Join us</a>
-    </div>
+  <a href="#join" class="hidden md:inline-flex bg-primary text-on-primary px-6 py-3 font-label text-sm font-semibold rounded-lg hover:bg-opacity-90 transition-all no-underline" style="transform:scale(1);transition:transform 0.1s" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'">
+    Join the Network
+  </a>
+  <button class="md:hidden p-2 text-primary" id="mobile-menu-btn" aria-label="Menu">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+</nav>
+<div class="hidden md:hidden border-t border-outline-variant bg-surface" id="mobile-menu">
+  <div class="px-5 py-4 space-y-3">
+    <a href="#about" class="block text-sm font-medium text-on-surface-variant hover:text-secondary no-underline">About</a>
+    <a href="#events" class="block text-sm font-medium text-on-surface-variant hover:text-secondary no-underline">Events</a>
+    <a href="#join" class="block text-sm font-medium text-secondary no-underline">Join Us</a>
   </div>
+</div>
 </header>
 
 <script>
   document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-    const menu = document.getElementById('mobile-menu');
-    if (menu) {
-      menu.classList.toggle('hidden');
-    }
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
   });
 </script>

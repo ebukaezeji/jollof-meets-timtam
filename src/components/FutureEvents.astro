@@ -1,49 +1,39 @@
-<section id="events" class="py-20 md:py-28 px-6 bg-white">
-  <div class="max-w-4xl mx-auto text-center">
-    <p class="text-emerald text-sm font-semibold tracking-widest uppercase mb-4" data-text="events.label">Events</p>
-    <h2 class="text-3xl md:text-4xl font-bold text-charcoal mb-4" data-text="events.heading">Coming Soon</h2>
-    <p class="text-charcoal-light max-w-xl mx-auto text-lg mb-12" data-text="events.subtitle">
-      Our first quarterly session is in the works. Here's what to expect.
+<section id="events" class="relative bg-inverse-surface text-on-primary py-16 md:py-24 overflow-hidden">
+<div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(#fff 0.5px,transparent 0.5px);background-size:24px 24px"></div>
+<div class="max-w-[1280px] mx-auto px-5 md:px-16 relative z-10">
+<div class="flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="md:w-1/2">
+    <span class="font-label text-xs text-secondary-fixed-dim uppercase tracking-widest mb-4 block" data-text="events.label">Featured Series</span>
+    <h2 class="font-headline text-[2rem] leading-[2.5rem] md:text-3xl text-white font-bold mb-6">
+      <span data-text="events.heading">Quarterly Virtual</span><br/>
+      <span class="text-secondary-fixed-dim" data-text="events.subtitle">Mixer Series</span>
+    </h2>
+    <p class="font-body text-lg text-on-primary-container mb-8 max-w-lg leading-relaxed" data-text="events.description">
+      An exclusive, intimate gathering featuring global and domestic industry titans. Share insights, debate trends, and forge partnerships in a virtual lounge environment designed for high-level discourse.
     </p>
-    <div class="bg-gray-50 rounded-2xl p-10 md:p-14 border border-gray-100">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-gold-light rounded-full text-gold-dark text-sm font-medium mb-8" data-text="events.badge">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-          <line x1="16" y1="2" x2="16" y2="6"/>
-          <line x1="8" y1="2" x2="8" y2="6"/>
-          <line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
-        Launching Q3 2026
+    <div class="flex flex-wrap gap-4 mb-6">
+      <div class="flex items-center gap-2 px-4 py-2 bg-primary-container border border-outline rounded-full">
+        <span class="material-symbols-outlined text-secondary-fixed text-sm">public</span>
+        <span class="font-label text-xs" data-text="events.feature1">Global Industry Titans</span>
       </div>
-      <h3 class="text-2xl md:text-3xl font-bold text-charcoal mb-6" data-text="events.cardHeading">
-        A new kind of networking experience
-      </h3>
-      <ul class="text-left max-w-lg mx-auto space-y-4 text-charcoal-light">
-        <li class="flex items-start gap-3">
-          <svg class="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B6E4F" stroke-width="2.5">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          <span data-text="events.feature1">Keynote conversations with African leaders in Australian business</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg class="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B6E4F" stroke-width="2.5">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          <span data-text="events.feature2">Breakout rooms by industry and career stage</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg class="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B6E4F" stroke-width="2.5">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          <span data-text="events.feature3">Curated 1:1 connections with peers and mentors</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg class="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B6E4F" stroke-width="2.5">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          <span data-text="events.feature4">Post-event resource hub with recordings and insights</span>
-        </li>
-      </ul>
+      <div class="flex items-center gap-2 px-4 py-2 bg-primary-container border border-outline rounded-full">
+        <span class="material-symbols-outlined text-secondary-fixed text-sm">verified</span>
+        <span class="font-label text-xs" data-text="events.feature2">Domestic Executive Leaders</span>
+      </div>
+    </div>
+    <button class="bg-secondary-fixed text-on-secondary-fixed px-8 py-3 font-label text-sm font-bold rounded hover:bg-secondary-fixed-dim transition-colors" style="transition:all 0.2s" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'" data-text="events.cta">
+      View Upcoming Speakers
+    </button>
+  </div>
+  <div class="md:w-1/2 w-full">
+    <div class="relative bg-white/80 backdrop-blur-[12px] border border-[rgba(242,242,242,1)] p-1 rounded-xl shadow-2xl">
+      <img class="w-full aspect-video object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsh2mT2ryFBTzwatdUx3SsWkYLbH281t_zyfXcPDo_KkBWPzn8SZPE5POr5KqwJCZM3sRZ6Y4tNXi659Zt72y9rhvfCXaD-BD53AvD9H8h71Bd4hmscVXQutdZvGmkSBVRIwnP3hxu_dsYm3DqG9FEnNdpTs47rBSZeLjk-yyafr0FM0Z1o4F7B0bSovLgRayJDSr4bJ52FJ54T3jCge_X8lLJ_e8TEyK5lieyLzbldVp4cKRotj-7o_9loBEElsEfxWmhbYqjWhg" alt="Networking event with evening skyline view">
+      <div class="absolute -bottom-4 -right-4 bg-secondary-container px-6 py-4 rounded shadow-xl hidden md:block">
+        <div class="font-headline text-base text-on-secondary-container font-semibold">NEXT: SEPT 15</div>
+        <div class="text-on-secondary-container opacity-80 font-label text-xs">7:00 PM AEST &bull; VIRTUAL</div>
+      </div>
     </div>
   </div>
+</div>
+</div>
 </section>

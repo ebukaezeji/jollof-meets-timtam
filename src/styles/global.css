@@ -1,26 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --color-emerald: #0B6E4F;
-  --color-emerald-dark: #08573E;
-  --color-emerald-light: #E8F5F0;
-  --color-gold: #D4AF37;
-  --color-gold-light: #FEF7E0;
-  --color-gold-dark: #B8962E;
-  --color-charcoal: #2D3748;
-  --color-charcoal-light: #4A5568;
-  --color-cream: #F7F3E9;
-  --color-cream-dark: #EDE6D5;
-  --color-terracotta: #C97B63;
-  --color-coral: #E8927C;
-  --color-navy: #1B2A4A;
-  --color-navy-light: #2D4A7A;
+  --color-primary: #000000;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #1c1b1b;
+  --color-on-primary-container: #858383;
+  --color-secondary: #795900;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ffbf00;
+  --color-on-secondary-container: #6d5000;
+  --color-secondary-fixed: #ffdfa0;
+  --color-secondary-fixed-dim: #fbbc00;
+  --color-on-secondary-fixed: #261a00;
+  --color-on-secondary-fixed-variant: #5c4300;
+  --color-tertiary: #735c00;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #cca730;
+  --color-on-tertiary-container: #4f3e00;
+  --color-surface: #fcf9f8;
+  --color-on-surface: #1c1b1b;
+  --color-surface-dim: #dcd9d9;
+  --color-surface-bright: #fcf9f8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0edec;
+  --color-surface-container-high: #ebe7e7;
+  --color-surface-container-highest: #e5e2e1;
+  --color-surface-variant: #e5e2e1;
+  --color-on-surface-variant: #444748;
+  --color-inverse-surface: #313030;
+  --color-inverse-on-surface: #f3f0ef;
+  --color-inverse-primary: #c8c6c5;
+  --color-outline: #747878;
+  --color-outline-variant: #c4c7c7;
+  --color-background: #fcf9f8;
+  --color-on-background: #1c1b1b;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
 
-  --font-heading: 'Inter', sans-serif;
+  --font-headline: 'Montserrat', sans-serif;
   --font-body: 'Inter', sans-serif;
-  --font-accent: 'Playfair Display', serif;
+  --font-label: 'Inter', sans-serif;
 }
 
 @layer base {
@@ -31,34 +55,7 @@
   }
   body {
     font-family: var(--font-body);
-    color: #202124;
-    background: #ffffff;
+    color: var(--color-on-surface);
+    background: var(--color-background);
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-  }
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.sr-only:focus {
-  position: fixed;
-  width: auto;
-  height: auto;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
 }
