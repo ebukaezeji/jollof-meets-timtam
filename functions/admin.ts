@@ -42,6 +42,18 @@ h1{font-size:1.5rem;font-weight:700;margin-bottom:2rem}
 .submissions-table td{padding:.6rem .5rem;border-bottom:1px solid #e8eaed;white-space:nowrap}
 .submissions-table tr:hover td{background:#f1f3f4}
 .submissions-table .date{color:#5f6368;font-size:.78rem}
+.image-upload{margin-bottom:2rem;padding:1rem;background:#fefefe;border:1px solid #e8eaed;border-radius:8px}
+.image-upload h3{font-size:.9rem;font-weight:600;margin-bottom:.75rem}
+.image-upload .preview{max-width:100%;max-height:200px;border-radius:4px;margin-bottom:.75rem;display:block}
+.image-upload .no-image{width:100%;height:120px;background:#f1f3f4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#9aa0a6;font-size:.8rem;margin-bottom:.75rem}
+.image-upload .row{display:flex;gap:.5rem;align-items:center}
+.image-upload input[type=file]{font-size:.8rem;flex:1}
+.image-upload .upload-btn{padding:.5rem 1rem;background:#1a1a1a;color:#fff;border:0;border-radius:6px;font-size:.8rem;font-weight:500;cursor:pointer}
+.image-upload .upload-btn:hover{background:#000}
+.image-upload .upload-btn:disabled{opacity:.5}
+.image-upload .up-status{font-size:.78rem;margin-top:.4rem}
+.image-upload .up-status.ok{color:#0B6E4F}
+.image-upload .up-status.err{color:#d93025}
 .loading{text-align:center;color:#5f6368;padding:3rem 0}
 </style>
 </head>
@@ -113,9 +125,9 @@ function buildForm(content) {
   const form = document.getElementById('contentForm')
   form.innerHTML = ''
   const sections = [
-    {key:'hero',label:'Hero Section',fields:{heading1:'Line 1',heading2:'Line 2 (Amber)',heading3:'Line 3',subtitle:'Subtitle',cta1:'Button Text'}},
+    {key:'hero',label:'Hero Section',imgKey:'hero',fields:{heading1:'Line 1',heading2:'Line 2 (Amber)',heading3:'Line 3',subtitle:'Subtitle',cta1:'Button Text'}},
     {key:'about',label:'About Section',fields:{heading:'Heading','card1.title':'Card 1 Title','card1.text':'Card 1 Text','card2.title':'Card 2 Title','card2.text':'Card 2 Text','card3.title':'Card 3 Title','card3.text':'Card 3 Text'}},
-    {key:'events',label:'Events Section',fields:{label:'Section Label',heading:'Heading Line 1',subtitle:'Heading Line 2 (Amber)',description:'Description',feature1:'Tag 1',feature2:'Tag 2',cta:'Button Text'}},
+    {key:'events',label:'Events Section',imgKey:'events',fields:{label:'Section Label',heading:'Heading Line 1',subtitle:'Heading Line 2 (Amber)',description:'Description',feature1:'Tag 1',feature2:'Tag 2',cta:'Button Text'}},
     {key:'join',label:'Join Section',fields:{heading:'Heading',subtitle:'Subtitle',button:'Button Text'}}
   ]
   const inputs = {}
@@ -132,9 +144,61 @@ function buildForm(content) {
       div.appendChild(el)
       inputs[s.key + '.' + key] = 'i-' + s.key + '-' + key.replace('.','-')
     })
+    if (s.imgKey) {
+      div.appendChild(createImageUploader(s.imgKey))
+    }
     form.appendChild(div)
   })
   window._inputs = inputs
+}
+
+function createImageUploader(key) {
+  const label = key === 'hero' ? 'Hero Image' : 'Events Image'
+  const div = document.createElement('div')
+  div.className = 'image-upload'
+  div.innerHTML = '<h3>' + label + '</h3>' +
+    '<img class="preview" id="preview-' + key + '" src="/api/image/' + key + '" alt="" style="display:none">' +
+    '<div class="no-image" id="noimg-' + key + '">No image uploaded</div>' +
+    '<div class="row"><input type="file" id="file-' + key + '" accept="image/*"><button class="upload-btn" id="upbtn-' + key + '" onclick="uploadImage(\'' + key + '\')">Upload</button></div>' +
+    '<p class="up-status" id="upstatus-' + key + '"></p>'
+  const img = div.querySelector('.preview')
+  img.onload = function() { img.style.display = 'block'; document.getElementById('noimg-' + key).style.display = 'none' }
+  img.onerror = function() { img.style.display = 'none'; document.getElementById('noimg-' + key).style.display = 'flex' }
+  return div
+}
+
+async function uploadImage(key) {
+  const fileInput = document.getElementById('file-' + key)
+  const btn = document.getElementById('upbtn-' + key)
+  const status = document.getElementById('upstatus-' + key)
+  const file = fileInput.files?.[0]
+  if (!file) { status.textContent = 'Select a file first'; status.className = 'up-status err'; return }
+  if (file.size > 5 * 1024 * 1024) { status.textContent = 'File too large (max 5MB)'; status.className = 'up-status err'; return }
+  btn.disabled = true
+  status.textContent = 'Uploading...'
+  status.className = 'up-status'
+  try {
+    const data = await new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
+    const res = await fetch('/api/admin/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ key, data })
+    })
+    if (!res.ok) throw new Error('Upload failed')
+    const preview = document.getElementById('preview-' + key)
+    preview.src = '/api/image/' + key + '?t=' + Date.now()
+    status.textContent = 'Uploaded!'
+    status.className = 'up-status ok'
+  } catch(e) {
+    status.textContent = e.message || 'Error uploading'
+    status.className = 'up-status err'
+  }
+  btn.disabled = false
 }
 
 async function save() {

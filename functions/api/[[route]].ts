@@ -157,6 +157,40 @@ app.get('/admin/submissions/download', async (c) => {
   })
 })
 
+app.post('/admin/upload', async (c) => {
+  const auth = c.req.header('Authorization')
+  if (!auth || !auth.startsWith('Bearer ')) {
+    return c.json({ error: 'Unauthorized' }, 401)
+  }
+  const decoded = atob(auth.slice(7))
+  if (!decoded.startsWith(c.env.ADMIN_PASSWORD + ':')) {
+    return c.json({ error: 'Unauthorized' }, 401)
+  }
+  const { key, data } = await c.req.json()
+  if (!key || !data) {
+    return c.json({ error: 'key and data are required' }, 400)
+  }
+  await c.env.FORM_DATA.put(`image:${key}`, JSON.stringify({ data }))
+  return c.json({ success: true })
+})
+
+app.get('/image/:key', async (c) => {
+  const key = c.req.param('key')
+  const raw = await c.env.FORM_DATA.get(`image:${key}`)
+  if (!raw) return c.text('Not found', 404)
+  try {
+    const { data } = JSON.parse(raw)
+    const match = data.match(/^data:(.+?);base64,(.+)$/)
+    if (!match) return c.text('Invalid image data', 500)
+    const binary = Uint8Array.from(atob(match[2]), c => c.charCodeAt(0))
+    return new Response(binary, {
+      headers: { 'Content-Type': match[1], 'Cache-Control': 'public, max-age=86400' },
+    })
+  } catch {
+    return c.text('Invalid image data', 500)
+  }
+})
+
 app.post('/join', async (c) => {
   try {
     const body = await c.req.json()
